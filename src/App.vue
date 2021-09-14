@@ -1,26 +1,74 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <!--Nav-->
+    <div id="nav" class="mt-3">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex flex-row">
+          <button class="btn sw-btn active me-2">
+            <img
+              src="./assets/Card.svg"
+              alt="SVG"
+              class="w-auto me-auto text-white pe-2"
+            />
+            <span>All Cards</span>
+          </button>
+          <button class="btn sw-btn">
+            <img
+              src="./assets/Deck.svg"
+              alt="SVG"
+              class="w-auto me-auto text-white pe-2"
+            />
+            <span>Decks</span>
+          </button>
+        </div>
+        <div class="d-none d-md-block">
+          <h3 class="m-0">
+            <span class="text-dark">SW</span
+            ><span class="text-secondary">-API Deck Builder</span>
+          </h3>
+        </div>
+        <div>
+          <button class="btn btn-outline-secondary">Bavin Edwards</button>
+        </div>
+      </div>
+      <hr class="header-hr bg-dark" />
+    </div>
+    <!--ENd Nav-->
+
+    <Breadcrumb class="mt-5" currentCard="Select a card" />
+    <Searchbar class="mt-3" />
+    <!--Dynamic views-->
+    <router-view />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Breadcrumb from "./components/Breadcrumb.vue";
+import Searchbar from "./components/Searchbar.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { Breadcrumb, Searchbar },
+};
 </script>
 
 <style>
+.sw-btn {
+  background: #e4e4e4;
+  color: #3b3b3b;
+  outline: none !important;
+}
+.sw-btn.active {
+  background: white;
+}
+
+hr.header-hr {
+  height: 3px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
