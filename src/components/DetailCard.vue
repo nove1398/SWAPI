@@ -35,37 +35,20 @@
             <div>{{person.homeworld}}</div>
           </div>
 
-           <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2">
+           <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2" v-for="vehicle in person.vehicles" :key="vehicle">
             <div class="d-flex ">
                 <img src="../assets/Vehicle.svg" alt="My Happy SVG" class="me-1" />
                 <span>Vehicles</span>
             </div>
-            <div>0</div>
+            <div>{{vehicle}}</div>
           </div>
 
-           <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2">
-            <div class="d-flex ">
-                <img src="../assets/Vehicle.svg" alt="My Happy SVG" class="me-1" />
-                <span>Vehicles</span>
-            </div>
-            <div>{{person.vehicles.length}}</div>
-          </div>
-
-           <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2"
-           >
+           <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2" v-for="ship in person.starships" :key="ship">
             <div class="d-flex ">
                 <img src="../assets/Starship.svg" alt="My Happy SVG" class="me-1" />
                 <span>Starships</span>
             </div>
-            <div>{{person.starships.length}}</div>
-          </div>
-
-          <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2">
-            <div class="d-flex ">
-                <img src="../assets/Starship.svg" alt="My Happy SVG" class="me-1" />
-                <span>Starships</span>
-            </div>
-            <div>0</div>
+            <div>{{ship}}</div>
           </div>
           <!--Content Items-->
       </div>

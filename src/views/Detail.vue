@@ -33,23 +33,27 @@ export default {
         .then((response) => response.json())
         .then(async (response) => {
               let promises = [];
+              let starshipPromises = [];
+              let vehiclePromises = [];
               this.person = response;
                 promises.push(fetch(response.homeworld).then(resp => resp.json()));
               if(response.species.length > 0){
                 promises.push(fetch(response.species[0]).then(resp => resp.json()));
               }
               if(response.starships.length > 0){
-                promises.push(...response.starships.map(el => fetch(el).then(resp => resp.json())));
+                response.starships.forEach(el => starshipPromises.push(fetch(el).then(resp => resp.json())));
                 }
               if(response.vehicles.length > 0){
-                promises.push(...response.vehicles.map(el => fetch(el).then(resp => resp.json())));
+                response.vehicles.forEach(el => vehiclePromises.push(fetch(el).then(resp => resp.json())));
                 }
               const result = await Promise.all([...promises]);
-              console.log(result[5]);
-              this.person.homeworld = result[0].name;
-              this.person.species = result[1].name ? result[0].name : "N/A";
-              this.person.starships = result[2] !== undefined? [...result[2]] : 0;
-              this.person.vehicles = result[3] ? result[3].map(el => el.name) : 0;
+              const ships = await Promise.all([...starshipPromises]);
+              const vehicles = await Promise.all([...vehiclePromises]);
+              console.log(ships);
+             this.person.homeworld = result[0].name;
+             this.person.species = response.species.length > 0 ? result[1].name : "N/A";
+             this.person.starships = ships.map(el => el.name);
+             this.person.vehicles = vehicles.map(el => el.name);
  
           this.isLoading = false;
         })
