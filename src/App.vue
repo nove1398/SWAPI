@@ -4,7 +4,7 @@
     <div id="nav" class="mt-3">
       <div class="d-flex justify-content-between">
         <div class="d-flex flex-row">
-          <button class="btn sw-btn active me-2">
+          <button class="btn sw-btn active me-2" @click="this.$router.push('/')">
             <img
               src="./assets/Card.svg"
               alt="SVG"
@@ -48,6 +48,13 @@ import Searchbar from "./components/Searchbar.vue";
 
 export default {
   components: { Breadcrumb, Searchbar },
+  data(){
+    return{
+      results:[]
+    }},
+  methods:{
+   
+  }
 };
 </script>
 

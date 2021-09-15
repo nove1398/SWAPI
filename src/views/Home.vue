@@ -1,7 +1,12 @@
 <template>
   <div class="container mt-3">
-    <div class="row">
-      <PersonCard :user="user" v-for="user in users" :key="user.id" />
+    <div class="row" v-if="!isLoading">
+      <PersonCard :person="person" v-for="person in persons" :key="person.id" />
+    </div>
+    <div class="row" v-if="isLoading">
+      <div class="col">
+        <div class="text-center display-4">Loading...</div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,54 +23,42 @@ export default {
   },
   data() {
     return {
-      users: [
-        {
-          id: 1,
-          name: "john1",
-          message: "hello",
-        },
-        {
-          id: 2,
-          name: "john2",
-          message: "hello",
-        },
-        {
-          id: 3,
-          name: "john3",
-          message: "hello",
-        },
-        {
-          id: 4,
-          name: "john4",
-          message: "hello",
-        },
-        {
-          id: 5,
-          name: "john5",
-          message: "hello",
-        },
-        {
-          id: 6,
-          name: "john6",
-          message: "hello",
-        },
-        {
-          id: 7,
-          name: "john7",
-          message: "hello",
-        },
-        {
-          id: 8,
-          name: "john8",
-          message: "hello",
-        },
-      ],
+      isLoading: false,
+      persons: [],
     };
   },
   methods: {
-    getPersons() {
-      //Fetch users
-      console.log("Hit it");
+     getPersons() {
+      this.isLoading = true;
+       fetch(`https://swapi.dev/api/people`)
+        .then((response) => response.json())
+        .then((responses) => {
+          responses.results.forEach(async (item, index,array) => {
+            let promises = [];
+            //Get homeworld
+            promises.push( fetch(item.homeworld).then((response) => response.json()));
+            //Get species array???
+            if (item.species.length > 0) {
+              //In event of multiple species
+              item.species.forEach(i => promises.push(fetch(i).then((response) => response.json())));
+              const allData = await Promise.all(promises);
+              array[index].homeworld = allData[0].name;
+              array[index].species = allData[1].name;
+              //console.log(allData);
+            }else{
+              const allData = await Promise.all(promises);
+              array[index].homeworld = allData[0].name;
+              array[index].species = "N/A";
+              //console.log("no species ", allData);
+              }
+
+              //Push each result for cool effect
+          this.persons.push(array[index]);
+              
+          });
+          this.isLoading = false;
+        })
+        .catch((err) => console.log("Error " + err));
     },
   },
 };

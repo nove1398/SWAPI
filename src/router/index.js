@@ -4,6 +4,9 @@ import Home from '../views/Home.vue'
 // @ts-ignore
 import Detail from '../views/Detail.vue'
 
+// @ts-ignore
+import Search from '../views/Search.vue'
+
 const routes = [
   {
     path: '/',
@@ -11,9 +14,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'Details',
     component: Detail
+  },
+  {
+    path: '/search/:id',
+    name: 'Search',
+    component: Search
   },
 ]
 
