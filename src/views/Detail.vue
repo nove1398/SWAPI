@@ -14,11 +14,13 @@ import DetailCard from "../components/DetailCard.vue";
 export default {
   name: "Detail",
   components: { DetailCard },
+  emits: ['paged'],
   props: {
     id: String
   },
   mounted: function () {
     this.getData();
+    
   },
   data() {
     return {
@@ -37,24 +39,18 @@ export default {
               let vehiclePromises = [];
               this.person = response;
                 promises.push(fetch(response.homeworld).then(resp => resp.json()));
-              if(response.species.length > 0){
-                promises.push(fetch(response.species[0]).then(resp => resp.json()));
-              }
-              if(response.starships.length > 0){
+                response.species.forEach(el => promises.push(fetch(el).then(resp => resp.json())));
                 response.starships.forEach(el => starshipPromises.push(fetch(el).then(resp => resp.json())));
-                }
-              if(response.vehicles.length > 0){
                 response.vehicles.forEach(el => vehiclePromises.push(fetch(el).then(resp => resp.json())));
-                }
+                
               const result = await Promise.all([...promises]);
               const ships = await Promise.all([...starshipPromises]);
               const vehicles = await Promise.all([...vehiclePromises]);
-              console.log(ships);
              this.person.homeworld = result[0].name;
-             this.person.species = response.species.length > 0 ? result[1].name : "N/A";
+             this.person.species = result[1]?.map(el => el.name) ?? "N/A";
              this.person.starships = ships.map(el => el.name);
              this.person.vehicles = vehicles.map(el => el.name);
- 
+           this.$emit('paged', this.person.name+' Details');
           this.isLoading = false;
         })
         .catch((err) => console.log("Error " + err));

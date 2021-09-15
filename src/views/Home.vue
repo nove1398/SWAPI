@@ -56,6 +56,7 @@ export default {
           this.persons.push(array[index]);
               
           });
+          this.$emit('paged', 'Select a card');
           this.isLoading = false;
         })
         .catch((err) => console.log("Error " + err));

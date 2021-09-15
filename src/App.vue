@@ -35,10 +35,10 @@
     </div>
     <!--ENd Nav-->
 
-    <Breadcrumb class="mt-5" currentCard="Select a card" />
-    <Searchbar class="mt-3" />
+    <Breadcrumb class="mt-5" :currentCard="updatePage()" />
+    <Searchbar class="mt-3" v-on:paged="pageChange"/>
     <!--Dynamic views-->
-    <router-view />
+    <router-view v-on:paged="pageChange" />
   </div>
 </template>
 
@@ -50,10 +50,14 @@ export default {
   components: { Breadcrumb, Searchbar },
   data(){
     return{
-      results:[]
+      currentCard:"Select a card"
     }},
   methods:{
-   
+    updatePage(){return this.currentCard;},
+    pageChange(e){
+      this.currentCard = e;
+      console.log("page changed",e);
+    }
   }
 };
 </script>
