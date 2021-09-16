@@ -1,7 +1,7 @@
 <template>
  <div class="container mt-3">
     <div class="row" v-if="!isLoading">
-      <PersonCard :person="person" v-for="person in results" :key="person.id" />
+        <PersonCard :person="person" v-for="person in results" :key="person.id" />
     </div>
     <div class="row" v-if="isLoading">
       <div class="col">
@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       results: [],
       term: ''
     };
