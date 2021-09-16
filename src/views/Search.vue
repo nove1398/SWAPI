@@ -15,10 +15,10 @@
 import PersonCard from "../components/PersonCard.vue";
 
 export default {
-  name: "Detail",
+  name: "Search",
   components: { PersonCard },
   props: {
-    id: String
+    term: String
   },
   mounted: function () {
     this.getData();
@@ -32,11 +32,14 @@ export default {
   methods: {
     getData() {
       this.isLoading = true;
-      fetch(`https://swapi.dev/api/people?search=${this.id}`)
+      fetch(`https://swapi.dev/api/people?search=${this.$route.params.term}`)
         .then((response) => response.json())
-        .then((response) => (this.results = response.data))
+        .then((response) => {
+          this.results = response.data;
+          this.isLoading = false;
+        })
         .catch((err) => alert(err));
-      this.isLoading = false;
+      
     },
   },
 };

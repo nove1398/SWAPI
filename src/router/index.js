@@ -19,7 +19,7 @@ const routes = [
     component: Detail
   },
   {
-    path: '/search/:id',
+    path: '/search/:term',
     name: 'Search',
     component: Search
   },

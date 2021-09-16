@@ -35,8 +35,8 @@
     </div>
     <!--ENd Nav-->
 
-    <Breadcrumb class="mt-5" :currentCard="updatePage()" />
-    <Searchbar class="mt-3" v-on:paged="pageChange"/>
+    <Breadcrumb class="mt-5" :currentCard="currentCard" />
+    <Searchbar class="mt-3" />
     <!--Dynamic views-->
     <router-view v-on:paged="pageChange" />
   </div>
@@ -53,10 +53,8 @@ export default {
       currentCard:"Select a card"
     }},
   methods:{
-    updatePage(){return this.currentCard;},
     pageChange(e){
       this.currentCard = e;
-      console.log("page changed",e);
     }
   }
 };

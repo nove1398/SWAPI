@@ -5,8 +5,8 @@
         type="text"
         class="form-control"
         placeholder="Search"
-        :v-model="searchTerm"
-        v-on:click="searchPerson()"
+        v-model="searchTerm"
+        @keyup.enter="searchPerson"
       />
     </div>
     <div class="d-flex">
@@ -36,10 +36,10 @@ export default {
       isLoading: true,
     };
   },
-  emits: ['paged'],
   methods: {
     searchPerson() {
-     
+        console.log(this.searchTerm);
+        this.$router.push(`/search/${this.searchTerm}`);
     },
   },
 };
