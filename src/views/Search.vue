@@ -1,6 +1,6 @@
 <template>
  <div class="container mt-3">
-    <div class="row" v-if="!isLoading">
+    <div class="row justify-content-md-center justify-content-lg-start" v-if="!isLoading">
         <PersonCard :person="person" v-for="person in results" :key="person.id" />
     </div>
     <div class="row" v-if="isLoading">

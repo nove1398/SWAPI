@@ -14,3 +14,11 @@ npm run serve
 3. Searchable by person name, or part thereof
 4. Responsive
 ```
+
+# Technology
+
+```
+1. Vue.js 3.x
+2. HTML
+3. CSS
+```
