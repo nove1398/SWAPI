@@ -15,9 +15,9 @@
       <div class="">
         <div class="d-flex justify-content-between">
           <div class="d-flex">
-            <img src="../assets/Gender-Male.svg" alt="My Happy SVG" class="me-1" v-if="1 ==1"/>
-            <img src="../assets/Gender-Female.svg" alt="My Happy SVG" class="me-1" v-if="2==3"/>
-            <div>{{person.gender}}</div>
+            <img src="../assets/Gender-Male.svg" alt="My Happy SVG" class="me-1" v-if="person.gender == 'male'"/>
+            <img src="../assets/Gender-Female.svg" alt="My Happy SVG" class="me-1" v-if="person.gender == 'female'"/>
+            <div class="text-capitalize">{{person.gender}}</div>
           </div>
           <div>{{person.species}}</div>
         </div>

@@ -26,7 +26,7 @@
       </div>
       <!--Body Header-->
       <!--Content-->
-      <div>
+      <div class="mt-3">
           <!--Content Items-->
           <div class="rounded d-flex justify-content-between p-2 person-content-item mb-2">
             <div class="d-flex ">
@@ -79,6 +79,9 @@ export default {
 </script>
 
 <style scoped>
+hr{
+  margin: 0;
+}
 .card {
   border-radius: 0.3em !important;
   min-width: 235px !important;

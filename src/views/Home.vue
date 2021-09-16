@@ -20,6 +20,7 @@ export default {
   components: { PersonCard },
   mounted: function () {
     this.getPersons();
+    this.$emit('paged', 'Select a card');
   },
   data() {
     return {
@@ -28,9 +29,9 @@ export default {
     };
   },
   methods: {
-     getPersons() {
+     async getPersons() {
       this.isLoading = true;
-       fetch(`https://swapi.dev/api/people`)
+       await fetch(`https://swapi.dev/api/people`)
         .then((response) => response.json())
         .then((responses) => {
           responses.results.forEach(async (item, index,array) => {
@@ -53,13 +54,11 @@ export default {
               }
 
               //Push each result for cool effect
-          this.persons.push(array[index]);
-              
+              this.persons.push(array[index]);
           });
-          this.$emit('paged', 'Select a card');
-          this.isLoading = false;
         })
         .catch((err) => console.log("Error " + err));
+        this.isLoading = false;
     },
   },
 };

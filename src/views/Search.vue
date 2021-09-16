@@ -18,27 +18,46 @@ export default {
   name: "Search",
   components: { PersonCard },
   props: {
-    term: String
+    
+  },
+   watch:{
+    $route (to){
+        this.term = to.params.term;
+       this.$emit('paged', `Searching for '${to.params.term}'`);
+    }
   },
   mounted: function () {
     this.getData();
+    this.$watch('term', () => {
+      this.getData();
+    })
   },
   data() {
     return {
       isLoading: false,
       results: [],
+      term: ''
     };
   },
   methods: {
-    getData() {
+     async getData() {
       this.isLoading = true;
-      fetch(`https://swapi.dev/api/people?search=${this.$route.params.term}`)
+      this.results = [];
+       await fetch(`https://swapi.dev/api/people?search=${this.$route.params.term}`)
         .then((response) => response.json())
         .then((response) => {
-          this.results = response.data;
-          this.isLoading = false;
+          response.results.forEach(async (item,index,array) => {
+            let promises = [];
+            promises.push(fetch(item.homeworld).then(resp => resp.json()));
+            promises.push(...item.species.map(i => fetch(i).then(resp => resp.json())));
+            const data = await Promise.all(promises);
+            array[index].homeworld = data[0].name;
+            array[index].species = data[1]?.name ?? "N/A";
+            this.results.push(array[index]);
+          });
         })
         .catch((err) => alert(err));
+        this.isLoading = false;
       
     },
   },

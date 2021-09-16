@@ -22,7 +22,7 @@ const routes = [
     path: '/search/:term',
     name: 'Search',
     component: Search
-  },
+  }
 ]
 
 const router = createRouter({

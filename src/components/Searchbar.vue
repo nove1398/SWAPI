@@ -36,9 +36,15 @@ export default {
       isLoading: true,
     };
   },
+  watch:{
+    $route (to){
+        if(!to.href.includes("search") )
+            this.searchTerm = '';
+    }
+  },
   methods: {
     searchPerson() {
-        console.log(this.searchTerm);
+      if(this.searchTerm !== undefined || this.searchTerm !== '' || this.searchTerm !== ' ')
         this.$router.push(`/search/${this.searchTerm}`);
     },
   },
